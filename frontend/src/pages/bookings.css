@@ -1,0 +1,72 @@
+Bookings.css
+
+/* Container styles */
+div {
+  margin: 20px;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table header styles */
+thead {
+  background-color: #f2f2f2;
+}
+
+th {
+  padding: 10px;
+  text-align: left;
+}
+
+/* Table body styles */
+tbody {
+  border: 1px solid #ddd;
+}
+
+tr {
+  border: 1px solid #ddd;
+}
+
+td {
+  padding: 10px;
+}
+
+/* Alternating row background color */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+td button {
+  margin-right: 5px; /* Optional: Adds a small margin between buttons */
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+/* Green Accept button */
+td button.accept {
+  background-color: #4caf50; /* Green */
+  color: white;
+  border: none;
+}
+td button.accepted {
+  background-color: #4caf50; /* Green */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+td button.paid {
+  background-color: #4caf50; /* Green */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Red Delete button */
+td button.delete {
+  background-color: #f44336; /* Red */
+  color: white;
+  border: none;
+}

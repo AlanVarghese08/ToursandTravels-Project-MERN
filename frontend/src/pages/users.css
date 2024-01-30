@@ -1,0 +1,42 @@
+/* Users.css */
+
+.user-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.user-card {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+  padding: 16px;
+  width: 250px;
+  transition: background-color 0.3s ease;
+}
+
+.user-card:hover {
+  background-color: #e0e0e0;
+}
+
+.user-card h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.user-card p {
+  color: #555;
+  margin: 0;
+}
+
+.user-card a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.user-card a:hover {
+  text-decoration: underline;
+}

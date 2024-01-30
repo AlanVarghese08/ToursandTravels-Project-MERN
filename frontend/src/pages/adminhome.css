@@ -1,0 +1,44 @@
+.admin-home {
+  text-align: center;
+  padding: 20px;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+}
+
+.admin-home-title {
+  color: #333;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-transform: uppercase; /* Convert text to uppercase */
+}
+
+.container-card {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  margin-top: 20px;
+}
+
+.cardd {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 10px;
+  background-color: #fff;
+}
+
+.cardd h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.cardd p {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #4caf50;
+  margin: 0;
+}
