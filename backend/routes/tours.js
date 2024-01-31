@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.post("/create", createTour);
 
-router.put("/:id", verifyAdmin, updateTour);
+router.put("/update/:id", updateTour);
 
 router.delete("/:id", deleteTour);
 

@@ -58,13 +58,15 @@ const Users = () => {
           {users.map((user) => (
             <div key={user._id} className="user-card">
               <h2>{user.username}</h2>
-              <p>Email: {user.email}</p> <br /> <br />
-              <Button variant="contained" onClick={() => deleteValue(user._id)}>
-                Delete
-              </Button>
-              {/* &nbsp; &nbsp; &nbsp;
-              &nbsp; &nbsp; */}
-              {/* <Button variant="contained">Update</Button> */}
+              <p>Email: {user.email}</p>
+              <div className="button-container">
+                <Button color="danger" onClick={() => deleteValue(user._id)}>
+                  Delete
+                </Button>
+                {/* Uncomment the lines below if you want an "Update" button */}
+                {/* <span className="spacer"></span>
+                <Button variant="contained">Update</Button> */}
+              </div>
             </div>
           ))}
         </div>

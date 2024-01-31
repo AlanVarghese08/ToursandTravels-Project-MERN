@@ -56,3 +56,35 @@
 .tour-card-buttons button {
   width: 80px;
 }
+
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.checkbox {
+  margin-top: 10px;
+}
+
+/* Additional styles for better layout */
+.button-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
