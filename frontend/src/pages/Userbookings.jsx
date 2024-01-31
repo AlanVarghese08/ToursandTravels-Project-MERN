@@ -1,36 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../utils/config";
-// import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const UserBookings = ({ accessToken }) => {
   const { userId } = useParams();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const decoded = jwt.decode(accessToken);
+  const decoded = jwt.decode(accessToken);
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await fetch(
-          `${BASE_URL}/booking/userbookings/${userId}`
-        );
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data: ${response.status}`);
+  useEffect(
+    () => {
+      const fetchBookings = async () => {
+        try {
+          const response = await fetch(
+            `${BASE_URL}/booking/userbookings/${userId}`
+          );
+          if (!response.ok) {
+            throw new Error(`Failed to fetch data: ${response.status}`);
+          }
+
+          const data = await response.json();
+          setBookings(data.data);
+          setLoading(false);
+        } catch (err) {
+          setError(err.message);
+          setLoading(false);
         }
+      };
 
-        const data = await response.json();
-        setBookings(data.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchBookings();
-  }, [userId]);
+      fetchBookings();
+    },
+    [userId],
+    accessToken
+  );
 
   if (loading) {
     return <p>Loading...</p>;
