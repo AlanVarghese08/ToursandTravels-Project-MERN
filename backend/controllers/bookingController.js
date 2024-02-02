@@ -33,10 +33,9 @@ export const getBooking = async (req, res) => {
   }
 };
 export const getBookingsByUserId = async (req, res) => {
-  const id = req.params.id;
-
+  const userId = req.params.id.trim();
   try {
-    const bookings = await Booking.find({ userId: id });
+    const bookings = await Booking.find({ userId: userId });
 
     res.status(200).json({
       success: true,
