@@ -10,31 +10,27 @@ const UserBookings = ({ accessToken }) => {
   const [error, setError] = useState(null);
   const decoded = jwt.decode(accessToken);
 
-  useEffect(
-    () => {
-      const fetchBookings = async () => {
-        try {
-          const response = await fetch(
-            `${BASE_URL}/booking/userbookings/${userId}`
-          );
-          if (!response.ok) {
-            throw new Error(`Failed to fetch data: ${response.status}`);
-          }
-
-          const data = await response.json();
-          setBookings(data.data);
-          setLoading(false);
-        } catch (err) {
-          setError(err.message);
-          setLoading(false);
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await fetch(
+          `${BASE_URL}/booking/userbookings/${userId}`
+        );
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data: ${response.status}`);
         }
-      };
 
-      fetchBookings();
-    },
-    [userId],
-    accessToken
-  );
+        const data = await response.json();
+        setBookings(data.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, [userId]);
 
   if (loading) {
     return <p>Loading...</p>;

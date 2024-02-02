@@ -9,7 +9,7 @@ module.exports = {
       util: require.resolve("util/"),
     },
   },
-  entry: "./src/index.js", // Adjust the entry file based on your project
+  entry: "./frontend/src/index.js", // Adjust the entry file based on your project
   output: {
     path: path.resolve(__dirname, "dist"), // Specify the output directory
     filename: "bundle.js",
