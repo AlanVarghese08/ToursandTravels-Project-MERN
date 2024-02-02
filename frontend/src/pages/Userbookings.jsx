@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { BASE_URL } from "../utils/config";
 import Cookies from "js-cookie";
 import { AuthContext } from "../context/AuthContext";
+import "./userbookings.css";
 
 const UserBookings = () => {
   const { user } = useContext(AuthContext);
@@ -72,7 +73,26 @@ const UserBookings = () => {
                 <td>{booking.guestSize}</td>
                 <td>{booking.phone}</td>
                 <td>{new Date(booking.bookAt).toLocaleString()}</td>
-                <td>{booking.status}</td>
+                <td>
+                  {booking.status === "Requested" && (
+                    <button disabled={true} className="requested-button">
+                      Requested
+                    </button>
+                  )}
+                  {booking.status === "accepted" && (
+                    <button
+                      // onClick={() => handlePay(booking._id)}
+                      className="pay-button"
+                    >
+                      Pay
+                    </button>
+                  )}
+                  {booking.status === "paid" && (
+                    <button disabled={true} className="paid-button">
+                      Paid
+                    </button>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

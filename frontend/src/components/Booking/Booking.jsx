@@ -20,6 +20,7 @@ const Booking = ({ tour, avgRating }) => {
     guestSize: 1,
     bookAt: "",
     status: "Requested",
+    totalamount: "",
   });
 
   const handleChange = (e) => {
@@ -33,7 +34,12 @@ const Booking = ({ tour, avgRating }) => {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    console.log(booking);
+    const updatedBooking = {
+      ...booking,
+      totalamount: totalAmount, // Add totalAmount to the booking object
+    };
+
+    console.log(updatedBooking);
 
     try {
       if (!user || user == undefined || user == null) {
@@ -43,7 +49,7 @@ const Booking = ({ tour, avgRating }) => {
         method: "post",
         headers: { "content-type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(booking),
+        body: JSON.stringify(updatedBooking), // Send the updatedBooking object
       });
       const result = await res.json();
 
@@ -64,8 +70,8 @@ const Booking = ({ tour, avgRating }) => {
           <span>/per person</span>
         </h3>
         <span className="tour__rating d-flex align-items-center">
-          <i class="ri-star-s-fill"></i>
-          {avgRating == 0 ? null : avgRating} ({reviews?.length})
+          <i className="ri-star-s-fill"></i>
+          {avgRating === 0 ? null : avgRating} ({reviews?.length})
         </span>
       </div>
       <div className="booking__form">
@@ -108,14 +114,12 @@ const Booking = ({ tour, avgRating }) => {
         </Form>
       </div>
       {/*================booking form end===========*/}
-
       {/*================booking bottom===========*/}
-
       <div className="booking__bottom">
         <ListGroup>
           <ListGroupItem className="border-0 px-0">
             <h5 className="d-flex align-items-center gap-1">
-              Rs.{price} <i class="ri-close-line"></i> 1 person
+              Rs.{price} <i className="ri-close-line"></i> 1 person
             </h5>
             <span>Rs.{price}</span>
           </ListGroupItem>
@@ -132,7 +136,6 @@ const Booking = ({ tour, avgRating }) => {
           Book Now
         </Button>
       </div>
-
       {/*================booking bottom===========*/}
     </div>
   );

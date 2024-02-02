@@ -33,6 +33,10 @@ const bookingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    totalamount: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );

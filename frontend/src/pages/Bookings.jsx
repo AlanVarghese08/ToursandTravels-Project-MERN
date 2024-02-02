@@ -140,7 +140,7 @@ const Bookings = () => {
                 <td>{booking.tourName}</td>
                 <td>{booking.fullName}</td>
                 <td>{booking.guestSize}</td>
-                <td>{booking.bookAt}</td>
+                <td>{new Date(booking.bookAt).toLocaleString()}</td>
                 <td>
                   {renderAcceptButton(booking.status, booking._id)}
                   <button

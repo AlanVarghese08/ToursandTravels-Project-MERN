@@ -1,0 +1,14 @@
+.requested-button {
+  background-color: royalblue;
+  color: white;
+}
+
+.pay-button {
+  background-color: green;
+  color: white;
+}
+
+.paid-button {
+  background-color: gray;
+  color: white;
+}
