@@ -19,10 +19,10 @@ const Toursadmin = () => {
     featured: false,
   });
 
-  // New state to track whether in edit mode
   const [editMode, setEditMode] = useState(false);
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(0);
 
-  // New state to store data for editing
   const [editTourData, setEditTourData] = useState({
     id: null,
     title: "",
@@ -39,7 +39,7 @@ const Toursadmin = () => {
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/tours?page=0`, {
+        const response = await fetch(`${BASE_URL}/tours?page=${page}`, {
           method: "GET",
           credentials: "include",
         });
@@ -55,8 +55,26 @@ const Toursadmin = () => {
       }
     };
 
+    const fetchTourCount = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/tours/search/getTourCount`, {
+          method: "GET",
+          credentials: "include",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch tour count");
+        }
+        const { data: tourCount } = await response.json();
+        const pages = Math.ceil(tourCount / 8);
+        setPageCount(pages);
+      } catch (error) {
+        console.error("Error fetching tour count:", error);
+      }
+    };
+
     fetchTours();
-  }, []);
+    fetchTourCount();
+  }, [page]);
 
   const handleDelete = async (id) => {
     try {
@@ -69,7 +87,6 @@ const Toursadmin = () => {
         throw new Error("Failed to delete tour");
       }
 
-      // Filter out the deleted tour from the state
       setTours((prevTours) => prevTours.filter((tour) => tour._id !== id));
     } catch (error) {
       console.error("Error deleting tour:", error);
@@ -101,13 +118,11 @@ const Toursadmin = () => {
     const { name, value, type, checked } = e.target;
 
     if (editMode) {
-      // If in edit mode, update the editTourData state
       setEditTourData((prevData) => ({
         ...prevData,
         [name]: type === "checkbox" ? checked : value,
       }));
     } else {
-      // If in add mode, update the newTourData state
       setNewTourData((prevData) => ({
         ...prevData,
         [name]: type === "checkbox" ? checked : value,
@@ -143,18 +158,15 @@ const Toursadmin = () => {
       const updatedTour = result.data;
 
       if (editMode) {
-        // If in edit mode, update the tour in the state
         setTours((prevTours) =>
           prevTours.map((tour) =>
             tour._id === updatedTour._id ? updatedTour : tour
           )
         );
       } else {
-        // If in add mode, add the new tour to the state
         setTours((prevTours) => [...prevTours, updatedTour]);
       }
 
-      // Reset the form data and state
       setEditMode(false);
       setShowAddTourForm(false);
       setEditTourData({
@@ -317,35 +329,48 @@ const Toursadmin = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="tour-card-container">
-          {tours.map((tour) => (
-            <div key={tour._id} className="tour-card">
-              <img src={tour.photo} alt="tour-img" />
-              <h2>{tour.title}</h2>
-              <h4>Rs.{tour.price}</h4>
-              <p>{tour.address}</p>
-              <p>{tour.desc}</p>
+        <>
+          <div className="tour-card-container">
+            {tours.map((tour) => (
+              <div key={tour._id} className="tour-card">
+                <img src={tour.photo} alt="tour-img" />
+                <h2>{tour.title}</h2>
+                <h4>Rs.{tour.price}</h4>
+                <p>{tour.address}</p>
+                <p>{tour.desc}</p>
 
-              <div className="button-container">
-                <Button
-                  color="danger"
-                  variant="contained"
-                  onClick={() => handleDelete(tour._id)}
-                >
-                  Delete
-                </Button>{" "}
-                <span className="spacer"></span>{" "}
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={() => handleEditClick(tour)}
-                >
-                  Edit
-                </Button>
+                <div className="button-container">
+                  <Button
+                    color="danger"
+                    variant="contained"
+                    onClick={() => handleDelete(tour._id)}
+                  >
+                    Delete
+                  </Button>{" "}
+                  <span className="spacer"></span>{" "}
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => handleEditClick(tour)}
+                  >
+                    Edit
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          <div className="pagination d-flex align-items-center justify-content-center mt-4 gap-3">
+            {[...Array(pageCount).keys()].map((number) => (
+              <span
+                key={number}
+                onClick={() => setPage(number)}
+                className={page === number ? "active__page" : ""}
+              >
+                {number + 1}
+              </span>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

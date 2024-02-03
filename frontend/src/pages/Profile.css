@@ -1,0 +1,46 @@
+/* Profile.css */
+
+.profile-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+  margin-bottom: 20px;
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-button {
+  padding: 10px;
+  background-color: #3498db; /* Blue color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background-color: #2980b9; /* Darker shade of blue on hover */
+}
+
+.delete-button {
+  padding: 10px;
+  background-color: #e74c3c; /* Red color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #c0392b; /* Darker shade of red on hover */
+}
