@@ -1,4 +1,6 @@
 import { createContext, useEffect, useReducer } from "react";
+import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
 
 const initial_state = {
   user:
@@ -68,4 +70,22 @@ export const AuthContextProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const AdminRoutes = ({ token, children }) => {
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
+
+export const isAuth = () => {
+  console.log("is auth called");
+  let token = Cookies.get("accessToken") || null;
+  console.log("isauth", token);
+  return token ? true : false;
+};
+
+export const Main = ({ child }) => {
+  return <div className="main">{child}</div>;
 };

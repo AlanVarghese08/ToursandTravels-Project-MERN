@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { BASE_URL } from "../utils/config";
-import Cookies from "js-cookie";
 import { AuthContext } from "../context/AuthContext";
 import "./userbookings.css";
+// import PaymentForm from "./PaymentForm";
+import Modal from "./Modal";
 
 const UserBookings = () => {
   const { user } = useContext(AuthContext);
@@ -12,6 +13,8 @@ const UserBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -48,6 +51,18 @@ const UserBookings = () => {
     return <p>Error: {error}</p>;
   }
 
+  let bookingNumber = 1;
+
+  const handlePay = (bookingId) => {
+    setShowModal(true);
+    setSelectedBookingId(bookingId);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedBookingId(null);
+  };
+
   return (
     <div>
       <h2>User Bookings</h2>
@@ -57,6 +72,7 @@ const UserBookings = () => {
         <table>
           <thead>
             <tr>
+              <th>Booking Number</th>
               <th>Tour Name</th>
               <th>Full Name</th>
               <th>Guest Size</th>
@@ -68,6 +84,7 @@ const UserBookings = () => {
           <tbody>
             {bookings.map((booking) => (
               <tr key={booking._id}>
+                <td>{bookingNumber++}</td>
                 <td>{booking.tourName}</td>
                 <td>{booking.fullName}</td>
                 <td>{booking.guestSize}</td>
@@ -81,7 +98,7 @@ const UserBookings = () => {
                   )}
                   {booking.status === "accepted" && (
                     <button
-                      // onClick={() => handlePay(booking._id)}
+                      onClick={() => handlePay(booking._id)}
                       className="pay-button"
                     >
                       Pay
@@ -97,6 +114,9 @@ const UserBookings = () => {
             ))}
           </tbody>
         </table>
+      )}
+      {showModal && (
+        <Modal handleClose={handleCloseModal} bookingId={selectedBookingId} />
       )}
     </div>
   );

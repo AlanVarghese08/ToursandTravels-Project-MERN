@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import "./header.css";
 import { AuthContext } from "../../context/AuthContext";
+import Cookies from "js-cookie";
 
 const navLinks = [
   {
@@ -67,8 +68,11 @@ const Header = () => {
   const [userRole, setUserRole] = useState("user");
 
   const logout = () => {
+    Cookies.remove("accessToken");
     dispatch({ type: "LOGOUT" });
+
     navigate("/");
+    window.location.reload();
   };
 
   const getUserRole = () => {
@@ -96,7 +100,7 @@ const Header = () => {
     stickyHeaderFunc();
     getUserRole();
     return () => window.removeEventListener("scroll", stickyHeaderFunc);
-  }, [user]);
+  }, [user, getUserRole]);
 
   const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
 

@@ -15,24 +15,103 @@ import Toursadmin from "../pages/Toursadmin";
 import Bookings from "../pages/Bookings";
 import Userbookings from "../pages/Userbookings";
 import Profile from "../pages/Profile";
+import { AdminRoutes, Main, isAuth } from "../context/AuthContext";
 
 const Router = () => {
+  let isadmin = isAuth();
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/tours" element={<Tours />} />
-      <Route path="/tours/:id" element={<TourDetails />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/thank-you" element={<ThankYou />} />
-      <Route path="/tour/search" element={<SearchResultList />} />
-      <Route path="/adminHome" element={<AdminHome />} />
-      <Route path="/users" element={<Users />} />
-      <Route path="/toursadmin" element={<Toursadmin />} />
-      <Route path="/bookings" element={<Bookings />} />
-      <Route path="/userbookings" element={<Userbookings />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/" element={<Home />} />
+      <Route
+        path="/home"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<Home />} />
+          </AdminRoutes>
+        }
+      />{" "}
+      <Route
+        path="/tours"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<Tours />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/tours/:id"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<TourDetails />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/thank-you"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<ThankYou />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/tour/search"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<SearchResultList />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/adminHome"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<AdminHome />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<Users />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/toursadmin"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<Toursadmin />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/bookings"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<Bookings />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/userbookings"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<Userbookings />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<Profile />} />
+          </AdminRoutes>
+        }
+      />
     </Routes>
   );
 };

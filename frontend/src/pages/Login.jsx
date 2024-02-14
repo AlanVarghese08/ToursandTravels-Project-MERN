@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../styles/login.css";
 import loginImg from "../assets/images/login.png";
 import userIcon from "../assets/images/user.png";
@@ -13,6 +13,8 @@ const Login = () => {
     password: undefined,
   });
 
+  const [userRole, setUserRole] = useState(""); // New state for userRole
+
   const { dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -20,8 +22,7 @@ const Login = () => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     dispatch({ type: "LOGIN_START" });
 
     try {
@@ -33,7 +34,6 @@ const Login = () => {
       });
 
       const result = await res.json();
-      console.log("result is", result.token);
 
       if (!res.ok) {
         alert(result.message);
@@ -41,19 +41,36 @@ const Login = () => {
         return;
       }
 
-      const userRole = result.role;
+      const fetchedUserRole = result.role;
 
       dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
 
-      if (userRole === "user") {
+      setUserRole(fetchedUserRole);
+      sessionStorage.setItem("userRole", fetchedUserRole);
+
+      if (fetchedUserRole === "user") {
         navigate("/home");
-      } else if (userRole === "admin") {
-        navigate("/adminhome");
+      } else if (fetchedUserRole === "admin") {
+        navigate("/adminHome");
       } else {
         navigate("/");
       }
+      window.location.reload();
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.message });
+    }
+  };
+
+  const handleBrowserBack = (event) => {
+    event.preventDefault();
+
+    // Redirect based on the stored userRole state
+    if (userRole === "user") {
+      navigate("/home");
+    } else if (userRole === "admin") {
+      navigate("/adminHome");
+    } else {
+      navigate("/");
     }
   };
 
@@ -73,7 +90,12 @@ const Login = () => {
                   </div>
                   <h2>Login</h2>
 
-                  <Form onSubmit={handleClick}>
+                  <Form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleLogin();
+                    }}
+                  >
                     <FormGroup>
                       <input
                         type="email"
