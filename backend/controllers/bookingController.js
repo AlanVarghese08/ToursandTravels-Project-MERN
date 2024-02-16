@@ -73,11 +73,12 @@ export const getAllBooking = async (req, res) => {
 
 export const updateBookingStatus = async (req, res) => {
   const id = req.params.id;
+  const { status } = req.body; // Assuming the new status is passed in the request body
 
   try {
     const updatedBooking = await Booking.findByIdAndUpdate(
       id,
-      { status: "accepted" },
+      { status: status },
       { new: true }
     );
 
@@ -89,7 +90,7 @@ export const updateBookingStatus = async (req, res) => {
 
     res.status(200).json({ success: true, data: updatedBooking });
   } catch (error) {
-    console.error("Error accepting booking:", error);
+    console.error("Error updating booking status:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };

@@ -53,7 +53,7 @@ const Bookings = () => {
         setBookings((prevBookings) =>
           prevBookings.map((booking) =>
             booking._id === bookingId
-              ? { ...booking, status: newStatus }
+              ? { ...booking, status: "accepted" }
               : booking
           )
         );

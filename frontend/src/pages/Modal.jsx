@@ -1,6 +1,6 @@
+// Modal.js
 import React from "react";
 import PaymentForm from "./PaymentForm";
-// import "./modal.css";
 
 const Modal = ({ handleClose, bookingId }) => {
   return (

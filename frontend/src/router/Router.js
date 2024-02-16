@@ -16,6 +16,8 @@ import Bookings from "../pages/Bookings";
 import Userbookings from "../pages/Userbookings";
 import Profile from "../pages/Profile";
 import { AdminRoutes, Main, isAuth } from "../context/AuthContext";
+import PaymentForm from "../pages/PaymentForm";
+import Booked from "../pages/Booked";
 
 const Router = () => {
   let isadmin = isAuth();
@@ -49,10 +51,26 @@ const Router = () => {
         }
       />
       <Route
+        path="/payment/:bookingid"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<PaymentForm />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
         path="/thank-you"
         element={
           <AdminRoutes token={isadmin}>
             <Main child={<ThankYou />} />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/booked"
+        element={
+          <AdminRoutes token={isadmin}>
+            <Main child={<Booked />} />
           </AdminRoutes>
         }
       />
