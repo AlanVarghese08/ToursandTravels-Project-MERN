@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 import Home from "./../pages/Home";
 
@@ -20,40 +21,57 @@ import PaymentForm from "../pages/PaymentForm";
 import Booked from "../pages/Booked";
 
 const Router = () => {
-  let isadmin = isAuth();
+  let Isadmin = isAuth();
+  const { user } = useContext(AuthContext);
+  let isadmin = Isadmin && user.role === "admin";
+  let isuser = Isadmin && user.role === "user";
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<Home />} />
-      <Route
-        path="/home"
-        element={
-          <AdminRoutes token={isadmin}>
-            <Main child={<Home />} />
-          </AdminRoutes>
-        }
-      />{" "}
-      <Route
-        path="/tours"
-        element={
-          <AdminRoutes token={isadmin}>
-            <Main child={<Tours />} />
-          </AdminRoutes>
-        }
-      />
-      <Route
-        path="/tours/:id"
-        element={
-          <AdminRoutes token={isadmin}>
-            <Main child={<TourDetails />} />
-          </AdminRoutes>
-        }
-      />
+
+      {user ? (
+        <>
+          <Route
+            path="/home"
+            element={
+              <AdminRoutes token={isuser}>
+                <Main child={<Home />} />
+              </AdminRoutes>
+            }
+          />
+          <Route
+            path="/tours"
+            element={
+              <AdminRoutes token={isuser}>
+                <Main child={<Tours />} />
+              </AdminRoutes>
+            }
+          />
+          <Route
+            path="/tours/:id"
+            element={
+              <AdminRoutes token={isuser}>
+                <Main child={<TourDetails />} />
+              </AdminRoutes>
+            }
+          />
+        </>
+      ) : (
+        <>
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/tours" element={<Tours />} />
+          <Route path="/tours/:id" element={<TourDetails />} />
+          <Route path="/tour/search" element={<SearchResultList />} />
+        </>
+      )}
+
       <Route
         path="/payment/:bookingid"
         element={
-          <AdminRoutes token={isadmin}>
+          <AdminRoutes token={isuser}>
             <Main child={<PaymentForm />} />
           </AdminRoutes>
         }
@@ -61,7 +79,7 @@ const Router = () => {
       <Route
         path="/thank-you"
         element={
-          <AdminRoutes token={isadmin}>
+          <AdminRoutes token={isuser}>
             <Main child={<ThankYou />} />
           </AdminRoutes>
         }
@@ -69,7 +87,7 @@ const Router = () => {
       <Route
         path="/booked"
         element={
-          <AdminRoutes token={isadmin}>
+          <AdminRoutes token={isuser}>
             <Main child={<Booked />} />
           </AdminRoutes>
         }
@@ -77,7 +95,7 @@ const Router = () => {
       <Route
         path="/tour/search"
         element={
-          <AdminRoutes token={isadmin}>
+          <AdminRoutes token={isuser}>
             <Main child={<SearchResultList />} />
           </AdminRoutes>
         }
@@ -117,7 +135,7 @@ const Router = () => {
       <Route
         path="/userbookings"
         element={
-          <AdminRoutes token={isadmin}>
+          <AdminRoutes token={isuser}>
             <Main child={<Userbookings />} />
           </AdminRoutes>
         }
@@ -125,7 +143,7 @@ const Router = () => {
       <Route
         path="/profile"
         element={
-          <AdminRoutes token={isadmin}>
+          <AdminRoutes token={isuser}>
             <Main child={<Profile />} />
           </AdminRoutes>
         }

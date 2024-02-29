@@ -86,7 +86,7 @@ const Toursadmin = () => {
       if (!response.ok) {
         throw new Error("Failed to delete tour");
       }
-
+      alert("Deleted successfully");
       setTours((prevTours) => prevTours.filter((tour) => tour._id !== id));
     } catch (error) {
       console.error("Error deleting tour:", error);
@@ -192,6 +192,7 @@ const Toursadmin = () => {
         maxGroupSize: 0,
         featured: false,
       });
+      alert("Tour added successfully");
     } catch (error) {
       console.error(`Error ${editMode ? "updating" : "adding"} tour:`, error);
     }
@@ -205,106 +206,115 @@ const Toursadmin = () => {
       </Button>
       {showAddTourForm && (
         <Form className="form-container" onSubmit={handleFormSubmit}>
-          <FormGroup>
-            <Label for="title">Title</Label>
-            <Input
-              type="text"
-              name="title"
-              id="title"
-              placeholder="Enter title"
-              value={editMode ? editTourData.title : newTourData.title}
-              onChange={handleAddTourChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="city">City</Label>
-            <Input
-              type="text"
-              name="city"
-              id="city"
-              placeholder="Enter city"
-              value={editMode ? editTourData.city : newTourData.city}
-              onChange={handleAddTourChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="address">Address</Label>
-            <Input
-              type="text"
-              name="address"
-              id="address"
-              placeholder="Enter address"
-              value={editMode ? editTourData.address : newTourData.address}
-              onChange={handleAddTourChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="distance">Distance</Label>
-            <Input
-              type="number"
-              name="distance"
-              id="distance"
-              placeholder="Enter distance"
-              value={editMode ? editTourData.distance : newTourData.distance}
-              onChange={handleAddTourChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="photo">Photo URL</Label>
-            <Input
-              type="text"
-              name="photo"
-              id="photo"
-              placeholder="Enter photo URL"
-              value={editMode ? editTourData.photo : newTourData.photo}
-              onChange={handleAddTourChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="desc">Description</Label>
-            <Input
-              type="textarea"
-              name="desc"
-              id="desc"
-              placeholder="Enter description"
-              value={editMode ? editTourData.desc : newTourData.desc}
-              onChange={handleAddTourChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="price">Price</Label>
-            <Input
-              type="number"
-              name="price"
-              id="price"
-              placeholder="Enter price"
-              value={editMode ? editTourData.price : newTourData.price}
-              onChange={handleAddTourChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="maxGroupSize">Max Group Size</Label>
-            <Input
-              type="number"
-              name="maxGroupSize"
-              id="maxGroupSize"
-              placeholder="Enter max group size"
-              value={
-                editMode ? editTourData.maxGroupSize : newTourData.maxGroupSize
-              }
-              onChange={handleAddTourChange}
-              required
-            />
-          </FormGroup>
-          {/* Featured field (assuming it's a boolean) */}
-          <FormGroup check>
+          <div className="row">
+            <FormGroup className="col-md-6">
+              <Label for="title">Title</Label>
+              <Input
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Enter title"
+                value={editMode ? editTourData.title : newTourData.title}
+                onChange={handleAddTourChange}
+                required
+              />
+            </FormGroup>
+            <FormGroup className="col-md-6">
+              <Label for="city">City</Label>
+              <Input
+                type="text"
+                name="city"
+                id="city"
+                placeholder="Enter city"
+                value={editMode ? editTourData.city : newTourData.city}
+                onChange={handleAddTourChange}
+                required
+              />
+            </FormGroup>
+          </div>
+          <div className="row">
+            <FormGroup className="col-md-6">
+              <Label for="address">Address</Label>
+              <Input
+                type="text"
+                name="address"
+                id="address"
+                placeholder="Enter address"
+                value={editMode ? editTourData.address : newTourData.address}
+                onChange={handleAddTourChange}
+                required
+              />
+            </FormGroup>
+            <FormGroup className="col-md-6">
+              <Label for="distance">Distance</Label>
+              <Input
+                type="number"
+                name="distance"
+                id="distance"
+                placeholder="Enter distance"
+                value={editMode ? editTourData.distance : newTourData.distance}
+                onChange={handleAddTourChange}
+                required
+              />
+            </FormGroup>
+          </div>
+          <div className="row">
+            <FormGroup className="col-md-6">
+              <Label for="photo">Photo URL</Label>
+              <Input
+                type="text"
+                name="photo"
+                id="photo"
+                placeholder="Enter photo URL"
+                value={editMode ? editTourData.photo : newTourData.photo}
+                onChange={handleAddTourChange}
+                required
+              />
+            </FormGroup>
+            <FormGroup className="col-md-6">
+              <Label for="desc">Description</Label>
+              <Input
+                type="textarea"
+                name="desc"
+                id="desc"
+                placeholder="Enter description"
+                value={editMode ? editTourData.desc : newTourData.desc}
+                onChange={handleAddTourChange}
+                required
+              />
+            </FormGroup>
+          </div>
+          <div className="row">
+            <FormGroup className="col-md-6">
+              <Label for="price">Price</Label>
+              <Input
+                type="number"
+                name="price"
+                id="price"
+                placeholder="Enter price"
+                value={editMode ? editTourData.price : newTourData.price}
+                onChange={handleAddTourChange}
+                required
+              />
+            </FormGroup>
+            <FormGroup className="col-md-6">
+              <Label for="maxGroupSize">Max Group Size</Label>
+              <Input
+                type="number"
+                name="maxGroupSize"
+                id="maxGroupSize"
+                placeholder="Enter max group size"
+                value={
+                  editMode
+                    ? editTourData.maxGroupSize
+                    : newTourData.maxGroupSize
+                }
+                onChange={handleAddTourChange}
+                required
+              />
+            </FormGroup>
+          </div>
+          <FormGroup check className="mb-3">
             <Label check>
               <Input
                 type="checkbox"
@@ -318,12 +328,14 @@ const Toursadmin = () => {
               Featured
             </Label>
           </FormGroup>
-          <Button color="primary" type="submit">
-            {editMode ? "Update" : "Save"}
-          </Button>{" "}
-          <Button color="secondary" onClick={() => setShowAddTourForm(false)}>
-            Cancel
-          </Button>
+          <div className="row">
+            <Button color="primary" type="submit">
+              {editMode ? "Update" : "Save"}
+            </Button>{" "}
+            <Button color="secondary" onClick={() => setShowAddTourForm(false)}>
+              Cancel
+            </Button>
+          </div>
         </Form>
       )}
       {loading ? (

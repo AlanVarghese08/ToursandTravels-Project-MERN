@@ -35,6 +35,7 @@ const Register = () => {
 
       if (!res.ok) alert(result.message);
       dispatch({ type: "REGISTER_SUCCESS" });
+      alert("Registerd Successfully");
       navigate("/login");
     } catch (err) {
       alert(err.message);

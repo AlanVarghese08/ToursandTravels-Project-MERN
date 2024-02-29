@@ -70,8 +70,18 @@ const AdminHome = () => {
   }, []);
 
   return (
-    <div className="admin-home">
-      <h1 className="admin-home-title">Welcome to Admin Dashboard</h1>
+    <div
+      className="admin-home"
+      style={{
+        backgroundImage:
+          'url("https://cdn.pixabay.com/photo/2017/01/20/00/30/maldives-1993704_640.jpg")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <h1 className="admin-home-title" style={{ color: "white" }}>
+        Welcome to Admin Dashboard
+      </h1>
       <div className="container-card">
         <Card title="Users" count={userCount} />
         <Card title="Tours" count={tourCount} />

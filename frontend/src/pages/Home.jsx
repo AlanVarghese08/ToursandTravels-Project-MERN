@@ -31,7 +31,7 @@ const Home = () => {
                   Travelling opens the door to creating{" "}
                   <span className="highlight">memories</span>
                 </h1>
-                <p>anything here</p>
+                {/* <p>anything here</p> */}
               </div>
             </Col>
             <Col lg="2">

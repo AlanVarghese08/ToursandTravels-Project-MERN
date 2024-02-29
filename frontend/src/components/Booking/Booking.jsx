@@ -34,9 +34,18 @@ const Booking = ({ tour, avgRating }) => {
   const handleClick = async (e) => {
     e.preventDefault();
 
+    if (
+      !booking.fullName ||
+      !booking.phone ||
+      !booking.bookAt ||
+      !booking.guestSize
+    ) {
+      return alert("All fields are required");
+    }
+
     const updatedBooking = {
       ...booking,
-      totalamount: totalAmount, // Add totalAmount to the booking object
+      totalamount: totalAmount,
     };
 
     console.log(updatedBooking);
@@ -49,7 +58,7 @@ const Booking = ({ tour, avgRating }) => {
         method: "post",
         headers: { "content-type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(updatedBooking), // Send the updatedBooking object
+        body: JSON.stringify(updatedBooking),
       });
       const result = await res.json();
 

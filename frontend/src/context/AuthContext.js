@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 const initial_state = {
   user:
-    localStorage.getItem("user") != undefined
+    localStorage.getItem("user") !== undefined
       ? JSON.parse(localStorage.getItem("user"))
       : null,
   loading: false,

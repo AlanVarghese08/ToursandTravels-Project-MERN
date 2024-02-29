@@ -41,7 +41,6 @@ const Users = () => {
         throw new Error("Failed to delete user");
       }
 
-      // Update the state to reflect the changes
       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -57,6 +56,7 @@ const Users = () => {
         <div className="user-card-container">
           {users.map((user) => (
             <div key={user._id} className="user-card">
+              <i class="ri-user-line" style={{ fontSize: "4rem" }}></i>
               <h2>{user.username}</h2>
               <p>Email: {user.email}</p>
               <div className="button-container">

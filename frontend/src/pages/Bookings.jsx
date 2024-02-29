@@ -92,12 +92,17 @@ const Bookings = () => {
     switch (status) {
       case "Requested":
         return (
-          <button
-            className="accept"
-            onClick={() => handleAccept(bookingId, status)}
-          >
-            Accept
-          </button>
+          <>
+            <button
+              className="accept"
+              onClick={() => handleAccept(bookingId, status)}
+            >
+              Accept
+            </button>
+            <button className="delete" onClick={() => handleDelete(bookingId)}>
+              Decline
+            </button>
+          </>
         );
       case "accepted":
         return (
@@ -141,15 +146,7 @@ const Bookings = () => {
                 <td>{booking.fullName}</td>
                 <td>{booking.guestSize}</td>
                 <td>{new Date(booking.bookAt).toLocaleString()}</td>
-                <td>
-                  {renderAcceptButton(booking.status, booking._id)}
-                  <button
-                    className="delete"
-                    onClick={() => handleDelete(booking._id)}
-                  >
-                    Decline
-                  </button>
-                </td>
+                <td>{renderAcceptButton(booking.status, booking._id)}</td>
               </tr>
             ))}
           </tbody>
