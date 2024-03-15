@@ -60,6 +60,7 @@ const TourDetails = () => {
         return alert(result.message);
       }
       alert(result.message);
+      window.location.reload();
     } catch (err) {
       alert(err.message);
     }

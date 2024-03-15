@@ -63,9 +63,6 @@ const Users = () => {
                 <Button color="danger" onClick={() => deleteValue(user._id)}>
                   Delete
                 </Button>
-                {/* Uncomment the lines below if you want an "Update" button */}
-                {/* <span className="spacer"></span>
-                <Button variant="contained">Update</Button> */}
               </div>
             </div>
           ))}
